@@ -2,6 +2,8 @@ package mcvmcomputers.client.gui;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -646,6 +648,9 @@ public class GuiPCEditing extends Screen{
 							if(pc_case.getIsoFileName().isEmpty()) {
 								edit.attachDevice("IDE Controller",1,0,DeviceType.DVD,null);
 							}
+							if (getVBoxMajorVersion() >= 7) {
+								try { edit.setPlatformArchitecture("x86_64"); } catch (VBoxException ex) {}
+							}
 							edit.saveSettings();
 							sess.unlockMachine();
 							usedSessions.remove(sess);
@@ -688,6 +693,9 @@ public class GuiPCEditing extends Screen{
 							if(pc_case.getIsoFileName().isEmpty()) {
 								edit.attachDevice("IDE Controller",1,0,DeviceType.DVD,null);
 							}
+							if (getVBoxMajorVersion() >= 7) {
+								try { edit.setPlatformArchitecture("x86_64"); } catch (VBoxException ex) {}
+							}
 							edit.saveSettings();
 							sess.unlockMachine();
 							usedSessions.remove(sess);
@@ -724,6 +732,21 @@ public class GuiPCEditing extends Screen{
 	@Override
 	public boolean isPauseScreen() {
 		return false;
+	}
+
+	private static int getVBoxMajorVersion() {
+		try {
+			Process process = new ProcessBuilder("VBoxManage", "--version").start();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String version = reader.readLine();
+			if (version != null && version.contains(".")) {
+				String major = version.split("\\.")[0];
+				return Integer.parseInt(major);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 }
