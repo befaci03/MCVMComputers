@@ -1,15 +1,16 @@
 {
   "schemaVersion": 1,
-  "id": "mcvmcomputers",
+  "id": "mcvboxvmcomputers",
   "version": "${version}",
 
   "name": "VM Computers",
-  "description": "Build computers that actually work using the VirtualBox API!",
+  "description": "Build computers that actually work using VirtualBox's 7.2.x API!",
   "authors": [
-    "DeltaTwoForce"
+    "DeltaTwoForce",
+    "Befaci"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/vm-computers",
+    "homepage": "https://modrinth.com/mod/mc-vm-computers",
     "sources": "https://github.com/Delta2Force/MCVmComputers"
   },
 
@@ -30,7 +31,7 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.10.0",
+    "fabricloader": ">=0.18.4",
     "fabric": "*",
     "minecraft": "1.16.5"
   },

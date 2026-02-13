@@ -4,21 +4,12 @@ import java.awt.Color;
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import org.apache.commons.lang3.SystemUtils;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
-import org.virtualbox_6_1.AccessMode;
-import org.virtualbox_6_1.DeviceType;
-import org.virtualbox_6_1.IMachine;
-import org.virtualbox_6_1.IMedium;
-import org.virtualbox_6_1.IProgress;
-import org.virtualbox_6_1.ISession;
-import org.virtualbox_6_1.LockType;
-import org.virtualbox_6_1.MachineState;
-import org.virtualbox_6_1.StorageBus;
-import org.virtualbox_6_1.VBoxException;
+import org.virtualbox_7_2.*;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -619,8 +610,7 @@ public class GuiPCEditing extends Screen{
 							edit.setOSTypeId(OSType);
 							edit.setMemorySize((long) Math.min(ClientMod.maxRam, (pc_case.getGigsOfRamInSlot0() + pc_case.getGigsOfRamInSlot1())));
 							edit.setCPUCount(Math.max(1, ClientMod.vb.getHost().getProcessorCount() / pc_case.getCpuDividedBy()));
-							edit.getGraphicsAdapter().setAccelerate2DVideoEnabled(true);
-							edit.getGraphicsAdapter().setAccelerate3DEnabled(true);
+							edit.getGraphicsAdapter().setFeature(GraphicsFeature.Acceleration3D, true);
 							edit.getGraphicsAdapter().setVRAMSize((long)ClientMod.videoMem);
 							try{
 								edit.removeStorageController("IDE Controller");
@@ -648,18 +638,15 @@ public class GuiPCEditing extends Screen{
 							if(pc_case.getIsoFileName().isEmpty()) {
 								edit.attachDevice("IDE Controller",1,0,DeviceType.DVD,null);
 							}
-							if (getVBoxMajorVersion() >= 7) {
-								try { edit.setPlatformArchitecture("x86_64"); } catch (VBoxException ex) {}
-							}
 							edit.saveSettings();
 							sess.unlockMachine();
 							usedSessions.remove(sess);
 						}else {
-							String OSType = "Other";
+							List<String> OSType = new ArrayList<>(List.of("Other"));
 							if(pc_case.get64Bit()) {
-								OSType += "_64";
+								OSType.add("_64");
 							}
-							IMachine machine = ClientMod.vb.createMachine("", "VmComputersVm", null, OSType, "");
+							IMachine machine = ClientMod.vb.createMachine("", "VmComputersVm", null, OSType, "", "", "", "", "");
 							ClientMod.vb.registerMachine(machine);
 							ISession sess = ClientMod.vbManager.getSessionObject();
 							machine.lockMachine(sess, LockType.Write);
@@ -667,8 +654,7 @@ public class GuiPCEditing extends Screen{
 							IMachine edit = sess.getMachine();
 							edit.setMemorySize((long) Math.min(ClientMod.maxRam, (pc_case.getGigsOfRamInSlot0() + pc_case.getGigsOfRamInSlot1())));
 							edit.setCPUCount(Math.min(1, ClientMod.vb.getHost().getProcessorCount() / pc_case.getCpuDividedBy()));
-							edit.getGraphicsAdapter().setAccelerate2DVideoEnabled(true);
-							edit.getGraphicsAdapter().setAccelerate3DEnabled(true);
+							edit.getGraphicsAdapter().setFeature(GraphicsFeature.Acceleration3D, true);
 							edit.getGraphicsAdapter().setVRAMSize((long)ClientMod.videoMem);
 							edit.addStorageController("IDE Controller", StorageBus.IDE);
 							if(!pc_case.getHardDriveFileName().isEmpty()) {
@@ -692,9 +678,6 @@ public class GuiPCEditing extends Screen{
 							}
 							if(pc_case.getIsoFileName().isEmpty()) {
 								edit.attachDevice("IDE Controller",1,0,DeviceType.DVD,null);
-							}
-							if (getVBoxMajorVersion() >= 7) {
-								try { edit.setPlatformArchitecture("x86_64"); } catch (VBoxException ex) {}
 							}
 							edit.saveSettings();
 							sess.unlockMachine();

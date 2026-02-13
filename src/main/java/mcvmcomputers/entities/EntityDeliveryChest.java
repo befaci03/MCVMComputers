@@ -17,7 +17,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.text.TranslatableText;
@@ -89,14 +89,14 @@ public class EntityDeliveryChest extends Entity{
 	}
 	
 	@Override
-	protected void readCustomDataFromTag(CompoundTag tag) {
+	protected void readCustomDataFromNbt(NbtCompound tag) {
 		this.getDataTracker().set(TARGET_X, tag.getFloat("TargetX"));
 		this.getDataTracker().set(TARGET_Y, tag.getFloat("TargetY"));
 		this.getDataTracker().set(TARGET_Z, tag.getFloat("TargetZ"));
 		this.getDataTracker().set(DELIVERY_UUID, tag.getString("DeliveryUUID"));
 	}
 	@Override
-	protected void writeCustomDataToTag(CompoundTag tag) {
+	protected void writeCustomDataToNbt(NbtCompound tag) {
 		tag.putFloat("TargetX", this.getDataTracker().get(TARGET_X));
 		tag.putFloat("TargetY", this.getDataTracker().get(TARGET_Y));
 		tag.putFloat("TargetZ", this.getDataTracker().get(TARGET_Z));

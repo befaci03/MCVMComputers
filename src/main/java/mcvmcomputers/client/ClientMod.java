@@ -18,9 +18,9 @@ import java.util.zip.Inflater;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.lwjgl.glfw.GLFW;
-import org.virtualbox_6_1.ISession;
-import org.virtualbox_6_1.IVirtualBox;
-import org.virtualbox_6_1.VirtualBoxManager;
+import org.virtualbox_7_2.ISession;
+import org.virtualbox_7_2.IVirtualBox;
+import org.virtualbox_7_2.VirtualBoxManager;
 
 import io.netty.buffer.Unpooled;
 import mcvmcomputers.MainMod;

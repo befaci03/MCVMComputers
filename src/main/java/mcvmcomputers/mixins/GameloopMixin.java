@@ -13,12 +13,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.virtualbox_6_1.IMachine;
-import org.virtualbox_6_1.IProgress;
-import org.virtualbox_6_1.ISession;
-import org.virtualbox_6_1.LockType;
-import org.virtualbox_6_1.MachineState;
-import org.virtualbox_6_1.VBoxException;
+import org.virtualbox_7_2.IMachine;
+import org.virtualbox_7_2.IProgress;
+import org.virtualbox_7_2.ISession;
+import org.virtualbox_7_2.LockType;
+import org.virtualbox_7_2.MachineState;
+import org.virtualbox_7_2.VBoxException;
 
 import mcvmcomputers.client.gui.setup.GuiSetup;
 import mcvmcomputers.client.tablet.TabletOS;

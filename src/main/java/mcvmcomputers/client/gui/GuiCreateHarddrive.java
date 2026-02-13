@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import org.apache.commons.lang3.math.NumberUtils;
-import org.virtualbox_6_1.AccessMode;
-import org.virtualbox_6_1.DeviceType;
-import org.virtualbox_6_1.IMedium;
-import org.virtualbox_6_1.IProgress;
-import org.virtualbox_6_1.MediumVariant;
+import org.virtualbox_7_2.AccessMode;
+import org.virtualbox_7_2.DeviceType;
+import org.virtualbox_7_2.IMedium;
+import org.virtualbox_7_2.IProgress;
+import org.virtualbox_7_2.MediumVariant;
 
 import io.netty.buffer.Unpooled;
 import mcvmcomputers.client.ClientMod;

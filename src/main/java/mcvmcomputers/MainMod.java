@@ -29,7 +29,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -134,7 +133,7 @@ public class MainMod implements ModInitializer{
 				for(ItemStack is : packetContext.getPlayer().getItemsHand()) {
 					if(is != null) {
 						if(is.getItem() instanceof ItemHarddrive) {
-							CompoundTag ct = is.getOrCreateTag();
+							net.minecraft.nbt.NbtCompound ct = is.getOrCreateTag();
 							ct.putString("vhdfile", newHddName);
 							break;
 						}

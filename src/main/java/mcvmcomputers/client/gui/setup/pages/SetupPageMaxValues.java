@@ -6,8 +6,8 @@ import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.virtualbox_6_1.IVirtualBox;
-import org.virtualbox_6_1.VirtualBoxManager;
+import org.virtualbox_7_2.IVirtualBox;
+import org.virtualbox_7_2.VirtualBoxManager;
 
 import com.google.gson.Gson;
 
@@ -141,7 +141,7 @@ public class SetupPageMaxValues extends SetupPage{
 			public void run() {
 				try {
 					VirtualBoxManager vm = VirtualBoxManager.createInstance(null);
-					vm.connect("http://localhost:18083", "should", "work");
+					vm.connect("http://localhost:18083", null, null);
 					IVirtualBox vb = vm.getVBox();
 					VMSettings set = new VMSettings();
 					set.vboxDirectory = setupGui.virtualBoxDirectory;

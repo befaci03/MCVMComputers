@@ -13,7 +13,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.text.TranslatableText;
@@ -63,7 +63,7 @@ public class EntityPC extends Entity{
 		this.updatePosition(x, y, z);
 	}
 	
-	public EntityPC(World world, double x, double y, double z, Vec3d lookAt, UUID owner, CompoundTag tag) {
+	public EntityPC(World world, double x, double y, double z, Vec3d lookAt, UUID owner, NbtCompound tag) {
 		this(EntityList.PC, world);
 		this.updatePosition(x, y, z);
 		this.getDataTracker().set(LOOK_AT_POS_X, (float)lookAt.x);
@@ -91,11 +91,11 @@ public class EntityPC extends Entity{
 		}
 	}
 	
-	public EntityPC(World world, double x, double y, double z, Vec3d lookAt, UUID owner, boolean glassSidepanel, CompoundTag tag) {
+	public EntityPC(World world, double x, double y, double z, Vec3d lookAt, UUID owner, boolean glassSidepanel, NbtCompound tag) {
 		this(world, x, y, z, lookAt, owner, tag);
 		this.getDataTracker().set(GLASS_SIDEPANEL, glassSidepanel);
 	}
-	
+
 	public Vec3d getLookAtPos() {
 		return new Vec3d(this.getDataTracker().get(LOOK_AT_POS_X), this.getDataTracker().get(LOOK_AT_POS_Y), this.getDataTracker().get(LOOK_AT_POS_Z));
 	}
@@ -117,7 +117,7 @@ public class EntityPC extends Entity{
 		this.getDataTracker().startTracking(SIXTY_FOUR_BIT, false);
 	}
 	@Override
-	protected void readCustomDataFromTag(CompoundTag tag) {
+	protected void readCustomDataFromNbt(NbtCompound tag) {
 		this.getDataTracker().set(LOOK_AT_POS_X, tag.getFloat("LookAtX"));
 		this.getDataTracker().set(LOOK_AT_POS_Y, tag.getFloat("LookAtY"));
 		this.getDataTracker().set(LOOK_AT_POS_Z, tag.getFloat("LookAtZ"));
@@ -125,45 +125,36 @@ public class EntityPC extends Entity{
 		if(tag.contains("Owner")){
 			this.getDataTracker().set(OWNER_UUID, tag.getString("Owner"));
 		}
-		
 		if(tag.contains("X64")) {
 			this.getDataTracker().set(SIXTY_FOUR_BIT, tag.getBoolean("X64"));
 		}
-		
 		if(tag.contains("CpuDividedBy")) {
 			this.getDataTracker().set(CPU_DIVIDED_BY, tag.getInt("CpuDividedBy"));
 		}
-		
 		if(tag.contains("IsoFileName")) {
 			this.getDataTracker().set(ISO_FILE_NAME, tag.getString("IsoFileName"));
 		}
-		
 		if(tag.contains("GbRamSlot0")) {
 			this.getDataTracker().set(GB_OF_RAM_IN_SLOT_0, tag.getInt("GbRamSlot0"));
 		}
-		
 		if(tag.contains("GbRamSlot1")) {
 			this.getDataTracker().set(GB_OF_RAM_IN_SLOT_1, tag.getInt("GbRamSlot1"));
 		}
-		
 		if(tag.contains("GpuInstalled")) {
 			this.getDataTracker().set(GPU_IN_PCI_SLOT, tag.getBoolean("GpuInstalled"));
 		}
-		
 		if(tag.contains("HardDriveFileName")) {
 			this.getDataTracker().set(HARD_DRIVE_FILE_NAME, tag.getString("HardDriveFileName"));
 		}
-		
 		if(tag.contains("MotherboardInstalled")) {
 			this.getDataTracker().set(MOTHERBOARD_INSTALLED, tag.getBoolean("MotherboardInstalled"));
 		}
-		
 		if(tag.contains("GlassSidepanel")) {
 			this.getDataTracker().set(GLASS_SIDEPANEL, tag.getBoolean("GlassSidepanel"));
 		}
 	}
 	@Override
-	protected void writeCustomDataToTag(CompoundTag tag) {
+	protected void writeCustomDataToNbt(NbtCompound tag) {
 		tag.putBoolean("X64", this.getDataTracker().get(SIXTY_FOUR_BIT));
 		tag.putFloat("LookAtX", this.getDataTracker().get(LOOK_AT_POS_X));
 		tag.putFloat("LookAtY", this.getDataTracker().get(LOOK_AT_POS_Y));
