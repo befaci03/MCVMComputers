@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "mcvboxvmcomputers",
+  "id": "mcvmcomputers",
   "version": "${version}",
 
   "name": "VM Computers",
@@ -10,7 +10,7 @@
     "Befaci"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/mc-vm-computers",
+    "homepage": "https://modrinth.com/mod/mc-vm-computers-vbox",
     "sources": "https://github.com/befaci03/MCVMComputers"
   },
 
